@@ -1,0 +1,6 @@
+{
+    "explorer.fileNesting.enabled": false,
+    "npm.enableRunFromFolder": false,
+    "editor.suggest.showFolders": true,
+    "explorer.compactFolders": false,
+}
