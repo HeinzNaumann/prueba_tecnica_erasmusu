@@ -1,0 +1,26 @@
+.buttonClassGreen{
+    background-color: var(--corporative-darkgreen);
+}
+
+.buttonClassGreen:hover{
+    background-color: rgb(36, 120, 36);
+}
+
+.buttonClassOrange{
+    background-color: var(--corporative-orange);
+}
+
+.buttonClassOrange:hover{
+    background-color: rgb(244, 174, 45);
+}
+button{
+    color:white;
+    font-family: Luckiest guy, sans-serif;
+    padding: 15px 20px;
+    border: none;
+    -moz-box-shadow:    inset 0 0 10px #000000;
+    -webkit-box-shadow: inset 0 0 10px #000000;
+    box-shadow:         inset 0 -5px 0px 0px #00000035;
+    cursor: pointer;
+}
+

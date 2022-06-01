@@ -48,7 +48,13 @@ table {
 }
 
 :root {
-	--main-bg-color: brown;
+	--corporative-yellow: #FED700;
+	--corporative-darkgreen: #127A2C;
+	--corporative-lightgreen: #4B9D41;
+	--corporative-orange: #F5A41E;
+	--corporative-darkgrey: #444142;
+	--corporative-mediumgrey: #B2B2B2;
+	--corporative-lightgrey: #DBDBDB;
   }
 
 h1, h2, h3, h4, h5{
