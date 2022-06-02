@@ -1,8 +1,10 @@
 import React from 'react'
-
+import styles from './Sidebar.module.css'
+import Button from '../common/Button'
+import styles2 from '../common/Button.module.css'
 const Sidebar = () => {
 	return (
-		<div>
+		<div className={styles.container}>
 			<h2>Filters</h2>
 			<label htmlFor='propertyType'>
 				<p>Property Type</p>
@@ -17,7 +19,7 @@ const Sidebar = () => {
 				<option>Ascending</option>
 				<option>Descendig</option>
 			</select>
-			<button>Download JSON</button>
+			<Button props={styles2.buttonClassOrange}>Download JSON</Button>
 		</div>
 	)
 }
