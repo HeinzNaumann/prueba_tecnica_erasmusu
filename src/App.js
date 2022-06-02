@@ -2,8 +2,8 @@ import './App.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCoffee } from '@fortawesome/free-solid-svg-icons'
 import Layout from './Layout/Layout'
-import Button from './components/Button'
-import styles from './components/Button.module.css'
+import Button from './common/Button'
+import styles from './common/Button.module.css'
 function App() {
 	return (
 		<Layout>
