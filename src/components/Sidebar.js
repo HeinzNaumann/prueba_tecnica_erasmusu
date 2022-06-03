@@ -6,12 +6,16 @@ import usePropertyType from '../hooks/useCategorias'
 import axios from 'axios'
 const Sidebar = () => {
 	//const [value, setValue] = useState()
-	const { getPropertyType } = usePropertyType()
+	const { getPropertyType, setOrderPrice, getProperties } = usePropertyType()
 
 	const handleChange = e => {
-		console.log(e.target.value)
 		e.preventDefault()
 		getPropertyType(e.target.value)
+	}
+
+	const handleChangePriceOrder = e => {
+		e.preventDefault()
+		getProperties(e.target.value)
 	}
 
 	return (
@@ -40,9 +44,17 @@ const Sidebar = () => {
 			<label htmlFor='sortByPrice'>
 				<p>Sort by Price</p>
 			</label>
-			<select id='sortByPrice' name='sortByPrice'>
-				<option>Ascending</option>
-				<option>Descendig</option>
+			<select
+				onChange={handleChangePriceOrder}
+				id='sortByPrice'
+				name='sortByPrice'
+			>
+				<option value='ascending' name='ascending'>
+					Ascending
+				</option>
+				<option value='descending' name='descending'>
+					Descendig
+				</option>
 			</select>
 			<Button props={styles2.buttonClassOrange}>Download JSON</Button>
 		</div>

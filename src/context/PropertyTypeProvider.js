@@ -8,27 +8,35 @@ const PropertyTypeProvider = ({ children }) => {
 	const [properties, setProperties] = useState([])
 
 	const getPropertyIds = async () => {
-		const url = '/markers/madrid'
-		const { data } = await axios(url)
-		let ArrayDataString = []
-		for (let i = 0; i < data.data.length; i++) {
-			ArrayDataString.push(data.data[i].id)
-			setPropertyIds(ArrayDataString)
+		try {
+			const url = '/markers/madrid'
+			const { data } = await axios(url)
+			let ArrayDataString = []
+			for (let i = 0; i < data.data.length; i++) {
+				ArrayDataString.push(data.data[i].id)
+				setPropertyIds(ArrayDataString)
+			}
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
 	const getPropertyType = async value => {
-		const url = `/markers/madrid?type[]=${value}`
-		const { data } = await axios(url)
-		let ArrayDataString = []
-		for (let i = 0; i < data.data.length; i++) {
-			ArrayDataString.push(data.data[i].id)
-			setPropertyIdsFilter(ArrayDataString)
+		try {
+			const url = `/markers/madrid?type[]=${value}`
+			const { data } = await axios(url)
+			let ArrayDataString = []
+			for (let i = 0; i < data.data.length; i++) {
+				ArrayDataString.push(data.data[i].id)
+				setPropertyIdsFilter(ArrayDataString)
+			}
+		} catch (error) {
+			console.log(error)
 		}
 	}
 
 	//Hacer un loop y coger solo los 30 primeros
-	const getProperties = async () => {
+	const getProperties = async value => {
 		let urlIds = []
 		if (propertyIdsFilter.length > 1) {
 			for (let i = 0; i < 30; i++) {
@@ -39,25 +47,53 @@ const PropertyTypeProvider = ({ children }) => {
 				urlIds.push(`&ids[]=${propertyIds[i]}`)
 			}
 		}
-
 		const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
-		const url = `/homecards_ids?${urlIdsString}`
-		const { data } = await axios(url)
-		setProperties(data.data.homecards)
+
+		try {
+			const url = `/homecards_ids?${urlIdsString}`
+			const { data } = await axios(url)
+			const order = data.data.homecards
+			order.sort(function (a, b) {
+				if (a.pricePerMonth > b.pricePerMonth) {
+					return 1
+				}
+			})
+
+			if (value === 'ascending') {
+				order.sort(function (a, b) {
+					if (a.pricePerMonth > b.pricePerMonth) {
+						return 1
+					}
+				})
+			} else if (value === 'descending') {
+				order.sort(function (a, b) {
+					if (a.pricePerMonth < b.pricePerMonth) {
+						return 1
+					}
+				})
+			}
+			setProperties(order)
+		} catch (error) {
+			console.log(error)
+		}
 	}
+
+	const setOrderPrice = value => {}
 
 	useEffect(() => {
 		getPropertyIds()
 		getProperties()
-	}, [propertyIds, propertyIdsFilter])
+	}, [propertyIdsFilter])
 
+	useEffect(() => {
+		getProperties()
+	}, [propertyIds])
 	return (
 		<PropertyTypeContext.Provider
 			value={{
-				propertyIds,
 				properties,
 				getPropertyType,
-				getPropertyIds,
+				setOrderPrice,
 				getProperties,
 			}}
 		>

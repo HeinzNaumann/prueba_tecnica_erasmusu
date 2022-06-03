@@ -11,7 +11,7 @@ const Main = () => {
 					<img src={property.photoUrls.homecard}></img>
 					<p>{property.title}</p>
 					<div>
-						<p></p>
+						<p>{property.pricePerMonth}</p>
 						<div>
 							<button></button>
 							<button></button>
