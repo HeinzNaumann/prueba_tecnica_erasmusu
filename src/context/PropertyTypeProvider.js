@@ -7,12 +7,7 @@ const PropertyTypeProvider = ({ children }) => {
 	const [propertyIdsFilter, setPropertyIdsFilter] = useState([])
 	const [properties, setProperties] = useState([])
 	const [loading, setLoading] = useState(true)
-
-	// console.log(loading, 'loading')
-	// console.log(properties, 'properties')
-	// console.log(propertyIdsFilter, 'propertyIdFilter')
 	let city = window.location.pathname
-
 	if (city == '/') {
 		city = 'madrid'
 	}
@@ -32,41 +27,29 @@ const PropertyTypeProvider = ({ children }) => {
 	}
 
 	const getProperties = async value => {
-		try {
-			let urlIds = []
-			if (propertyIdsFilter.length > 1) {
-				for (let i = 0; i < 30; i++) {
-					urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
-				}
+		let urlIds = []
+		if (propertyIdsFilter.length > 1) {
+			for (let i = 0; i < 30; i++) {
+				urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
 			}
-			const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
-			const url = `/homecards_ids?${urlIdsString}`
-			const { data } = await axios(url)
-			const order = data.data.homecards
-
-			order.sort(function (a, b) {
-				if (a.pricePerMonth > b.pricePerMonth) {
-					return 1
-				}
-			})
-
-			if (value === 'ascending') {
-				order.sort(function (a, b) {
-					if (a.pricePerMonth > b.pricePerMonth) {
-						return 1
-					}
-				})
-			} else if (value === 'descending') {
-				order.sort(function (a, b) {
-					if (a.pricePerMonth < b.pricePerMonth) {
-						return 1
-					}
-				})
-			}
-			setProperties(order)
-		} catch (error) {
-			console.log(error)
 		}
+		const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
+		const url = `/homecards_ids?${urlIdsString}`
+		const { data } = await axios(url)
+		const order = data.data.homecards
+		if (value === undefined || value === 'ascending') {
+			order.sort((a, b) => {
+				return a.pricePerMonth - b.pricePerMonth
+			})
+		} else {
+			order.sort((a, b) => {
+				return b.pricePerMonth - a.pricePerMonth
+			})
+		}
+
+		console.log(order)
+
+		setProperties(order)
 
 		setLoading(false)
 	}
