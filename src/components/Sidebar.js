@@ -4,9 +4,7 @@ import Button from '../common/Button'
 import styles2 from '../common/Button.module.css'
 import usePropertyType from '../hooks/useCategorias'
 const Sidebar = () => {
-	//const [value, setValue] = useState()
-	const { getPropertyType, setOrderPrice, getProperties, properties } =
-		usePropertyType()
+	const { getPropertyType, getProperties, properties } = usePropertyType()
 
 	const handleChange = e => {
 		e.preventDefault()
@@ -19,11 +17,10 @@ const Sidebar = () => {
 	}
 
 	const exportData = () => {
-		console.log(properties)
 		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
 			JSON.stringify(properties)
 		)}`
-		console.log(jsonString)
+		//console.log(jsonString)
 		const link = document.createElement('a')
 		link.href = jsonString
 		link.download = 'properties.json'
@@ -37,7 +34,12 @@ const Sidebar = () => {
 			<label htmlFor='propertyType'>
 				<p>Property Type</p>
 			</label>
-			<select onChange={handleChange} id='propertyType' name='propertyType'>
+			<select
+				onChange={handleChange}
+				id='propertyType'
+				name='propertyType'
+				data-testid='select-property'
+			>
 				<option value='all' name='all'>
 					All
 				</option>

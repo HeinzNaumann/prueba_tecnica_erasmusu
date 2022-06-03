@@ -1,27 +1,20 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useCallback } from 'react'
 import axios from 'axios'
 const PropertyTypeContext = createContext()
 
 const PropertyTypeProvider = ({ children }) => {
-	const [propertyIds, setPropertyIds] = useState([])
+	//const [propertyIds, setPropertyIds] = useState([])
 	const [propertyIdsFilter, setPropertyIdsFilter] = useState([])
 	const [properties, setProperties] = useState([])
+	const [loading, setLoading] = useState(true)
+
+	// console.log(loading, 'loading')
+	// console.log(properties, 'properties')
+	// console.log(propertyIdsFilter, 'propertyIdFilter')
 	let city = window.location.pathname
-	const getPropertyIds = async () => {
-		try {
-			if (city == '/') {
-				city = '/madrid'
-			}
-			const url = `/markers${city}`
-			const { data } = await axios(url)
-			let ArrayDataString = []
-			for (let i = 0; i < data.data.length; i++) {
-				ArrayDataString.push(data.data[i].id)
-				setPropertyIds(ArrayDataString)
-			}
-		} catch (error) {
-			console.log(error)
-		}
+
+	if (city == '/') {
+		city = 'madrid'
 	}
 
 	const getPropertyType = async value => {
@@ -38,21 +31,15 @@ const PropertyTypeProvider = ({ children }) => {
 		}
 	}
 
-	//Hacer un loop y coger solo los 30 primeros
 	const getProperties = async value => {
-		let urlIds = []
-		if (propertyIdsFilter.length > 1) {
-			for (let i = 0; i < 30; i++) {
-				urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
-			}
-		} else {
-			for (let i = 0; i < 30; i++) {
-				urlIds.push(`&ids[]=${propertyIds[i]}`)
-			}
-		}
-		const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
-
 		try {
+			let urlIds = []
+			if (propertyIdsFilter.length > 1) {
+				for (let i = 0; i < 30; i++) {
+					urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
+				}
+			}
+			const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
 			const url = `/homecards_ids?${urlIdsString}`
 			const { data } = await axios(url)
 			const order = data.data.homecards
@@ -80,25 +67,22 @@ const PropertyTypeProvider = ({ children }) => {
 		} catch (error) {
 			console.log(error)
 		}
+
+		setLoading(false)
 	}
 
-	const setOrderPrice = value => {}
-
 	useEffect(() => {
-		getPropertyIds()
 		getProperties()
 	}, [propertyIdsFilter])
 
-	useEffect(() => {
-		getProperties()
-	}, [propertyIds])
 	return (
 		<PropertyTypeContext.Provider
 			value={{
 				properties,
 				getPropertyType,
-				setOrderPrice,
 				getProperties,
+				loading,
+				propertyIdsFilter,
 			}}
 		>
 			{children}

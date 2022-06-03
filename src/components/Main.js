@@ -1,24 +1,31 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import Loading from '../common/Loading'
 import usePropertyType from '../hooks/useCategorias'
 import styles from './Main.module.css'
 const Main = () => {
-	const { properties } = usePropertyType()
-
+	const { properties, loading, getPropertyType } = usePropertyType()
+	useEffect(() => {
+		getPropertyType('all')
+	}, [])
 	return (
 		<>
-			{properties.map(property => (
-				<div className={styles.propertyBox} key={property.id}>
-					<img src={property.photoUrls.homecard}></img>
-					<p>{property.title}</p>
-					<div>
-						<p>{property.pricePerMonth}</p>
+			{loading ? (
+				<Loading />
+			) : (
+				properties.map(property => (
+					<div className={styles.propertyBox} key={property.id}>
+						<img src={property.photoUrls.homecard}></img>
+						<p>{property.title}</p>
 						<div>
-							<button></button>
-							<button></button>
+							<p>{property.pricePerMonth}</p>
+							<div>
+								<button></button>
+								<button></button>
+							</div>
 						</div>
 					</div>
-				</div>
-			))}
+				))
+			)}
 		</>
 	)
 }
