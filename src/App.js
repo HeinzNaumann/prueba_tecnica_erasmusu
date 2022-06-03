@@ -1,16 +1,21 @@
 import './App.css'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCoffee } from '@fortawesome/free-solid-svg-icons'
+import Sidebar from './components/Sidebar'
+import styles from './Layout/Layout.module.css'
 import Layout from './Layout/Layout'
 import { PropertyTypeProvider } from './context/PropertyTypeProvider'
+import Main from './components/Main'
 function App() {
+	//const { properties } = usePropertyType()
 	return (
 		<PropertyTypeProvider>
 			<Layout>
-				<div className='App'>
-					<h1>Prueba</h1>
-
-					<FontAwesomeIcon icon={faCoffee} />
+				<div className={styles.container}>
+					<aside>
+						<Sidebar />
+					</aside>
+					<main>
+						<Main />
+					</main>
 				</div>
 			</Layout>
 		</PropertyTypeProvider>

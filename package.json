@@ -48,5 +48,6 @@
     "eslint-plugin-n": "^15.2.0",
     "eslint-plugin-promise": "^6.0.0",
     "eslint-plugin-react": "^7.30.0"
-  }
+  },
+  "proxy": "https://www.spotahome.com/api/public/listings/search"
 }
