@@ -6,10 +6,13 @@ const PropertyTypeProvider = ({ children }) => {
 	const [propertyIds, setPropertyIds] = useState([])
 	const [propertyIdsFilter, setPropertyIdsFilter] = useState([])
 	const [properties, setProperties] = useState([])
-
+	let city = window.location.pathname
 	const getPropertyIds = async () => {
 		try {
-			const url = '/markers/madrid'
+			if (city == '/') {
+				city = '/madrid'
+			}
+			const url = `/markers${city}`
 			const { data } = await axios(url)
 			let ArrayDataString = []
 			for (let i = 0; i < data.data.length; i++) {
@@ -23,7 +26,7 @@ const PropertyTypeProvider = ({ children }) => {
 
 	const getPropertyType = async value => {
 		try {
-			const url = `/markers/madrid?type[]=${value}`
+			const url = `/markers/${city}?type[]=${value}`
 			const { data } = await axios(url)
 			let ArrayDataString = []
 			for (let i = 0; i < data.data.length; i++) {
@@ -53,6 +56,7 @@ const PropertyTypeProvider = ({ children }) => {
 			const url = `/homecards_ids?${urlIdsString}`
 			const { data } = await axios(url)
 			const order = data.data.homecards
+
 			order.sort(function (a, b) {
 				if (a.pricePerMonth > b.pricePerMonth) {
 					return 1

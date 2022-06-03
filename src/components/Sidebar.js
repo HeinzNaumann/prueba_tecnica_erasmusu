@@ -3,10 +3,10 @@ import styles from './Sidebar.module.css'
 import Button from '../common/Button'
 import styles2 from '../common/Button.module.css'
 import usePropertyType from '../hooks/useCategorias'
-import axios from 'axios'
 const Sidebar = () => {
 	//const [value, setValue] = useState()
-	const { getPropertyType, setOrderPrice, getProperties } = usePropertyType()
+	const { getPropertyType, setOrderPrice, getProperties, properties } =
+		usePropertyType()
 
 	const handleChange = e => {
 		e.preventDefault()
@@ -16,6 +16,19 @@ const Sidebar = () => {
 	const handleChangePriceOrder = e => {
 		e.preventDefault()
 		getProperties(e.target.value)
+	}
+
+	const exportData = () => {
+		console.log(properties)
+		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
+			JSON.stringify(properties)
+		)}`
+		console.log(jsonString)
+		const link = document.createElement('a')
+		link.href = jsonString
+		link.download = 'properties.json'
+
+		link.click()
 	}
 
 	return (
@@ -56,7 +69,13 @@ const Sidebar = () => {
 					Descendig
 				</option>
 			</select>
-			<Button props={styles2.buttonClassOrange}>Download JSON</Button>
+			<button
+				type='button'
+				onClick={exportData}
+				className={styles2.buttonClassOrange}
+			>
+				Export Data
+			</button>
 		</div>
 	)
 }
