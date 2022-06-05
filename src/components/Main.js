@@ -8,7 +8,7 @@ const Main = () => {
 		getPropertyType('all')
 	}, [])
 	return (
-		<>
+		<div data-testid='properties'>
 			{loading ? (
 				<Loading />
 			) : (
@@ -26,7 +26,7 @@ const Main = () => {
 					</div>
 				))
 			)}
-		</>
+		</div>
 	)
 }
 

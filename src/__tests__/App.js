@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { PropertyTypeProvider } from '../context/PropertyTypeProvider'
 import App from '../App'
 
-test('renders learn react link', async () => {
+test('<App /> al aplicación funciona bien', async () => {
 	render(
 		<PropertyTypeProvider>
 			<App />

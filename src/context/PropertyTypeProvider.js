@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext, useCallback } from 'react'
+import { useState, useEffect, createContext } from 'react'
 import axios from 'axios'
 const PropertyTypeContext = createContext()
 
@@ -27,31 +27,32 @@ const PropertyTypeProvider = ({ children }) => {
 	}
 
 	const getProperties = async value => {
-		let urlIds = []
-		if (propertyIdsFilter.length > 1) {
-			for (let i = 0; i < 30; i++) {
-				urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
+		try {
+			let urlIds = []
+			if (propertyIdsFilter.length > 1) {
+				for (let i = 0; i < 30; i++) {
+					urlIds.push(`&ids[]=${propertyIdsFilter[i]}`)
+				}
 			}
+			const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
+			const url = `/homecards_ids?${urlIdsString}`
+			const { data } = await axios(url)
+			console.log(data)
+			const order = data.data.homecards
+			if (value === undefined || value === 'ascending') {
+				order.sort((a, b) => {
+					return a.pricePerMonth - b.pricePerMonth
+				})
+			} else {
+				order.sort((a, b) => {
+					return b.pricePerMonth - a.pricePerMonth
+				})
+			}
+			setProperties(order)
+			setLoading(false)
+		} catch (error) {
+			console.log(error)
 		}
-		const urlIdsString = urlIds.toString().replaceAll(',', '').substring(1)
-		const url = `/homecards_ids?${urlIdsString}`
-		const { data } = await axios(url)
-		const order = data.data.homecards
-		if (value === undefined || value === 'ascending') {
-			order.sort((a, b) => {
-				return a.pricePerMonth - b.pricePerMonth
-			})
-		} else {
-			order.sort((a, b) => {
-				return b.pricePerMonth - a.pricePerMonth
-			})
-		}
-
-		console.log(order)
-
-		setProperties(order)
-
-		setLoading(false)
 	}
 
 	useEffect(() => {

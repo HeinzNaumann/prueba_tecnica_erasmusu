@@ -20,7 +20,6 @@ const Sidebar = () => {
 		const jsonString = `data:text/json;chatset=utf-8,${encodeURIComponent(
 			JSON.stringify(properties)
 		)}`
-		//console.log(jsonString)
 		const link = document.createElement('a')
 		link.href = jsonString
 		link.download = 'properties.json'
@@ -31,6 +30,7 @@ const Sidebar = () => {
 	return (
 		<div className={styles.container}>
 			<h2>Filters</h2>
+
 			<label htmlFor='propertyType'>
 				<p>Property Type</p>
 			</label>
@@ -43,7 +43,11 @@ const Sidebar = () => {
 				<option value='all' name='all'>
 					All
 				</option>
-				<option value='apartaments' name='apartaments'>
+				<option
+					value='apartaments'
+					name='apartaments'
+					data-testid='apartaments'
+				>
 					Apartaments
 				</option>
 				<option value='rooms' name='rooms'>
@@ -63,6 +67,7 @@ const Sidebar = () => {
 				onChange={handleChangePriceOrder}
 				id='sortByPrice'
 				name='sortByPrice'
+				data-testid='select-priceOrder'
 			>
 				<option value='ascending' name='ascending'>
 					Ascending
