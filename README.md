@@ -12,7 +12,7 @@ For the search of diferent cities you should ad manually write the name after th
 
 - Create a folder with the desired name to Clone the repository
 
-- Inside the folder with terminal add the green text
+- Inside the folder with terminal add the following text
 
 `git clone https://github.com/HeinzNaumann/prueba_tecnica_erasmusu.git`
 
