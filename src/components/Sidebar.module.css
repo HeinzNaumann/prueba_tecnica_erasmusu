@@ -5,3 +5,10 @@
     max-width: 200px;
     justify-content: center;
 }
+
+@media (max-width: 768px){
+    .container{
+        margin-top: 50px;
+    }
+
+}

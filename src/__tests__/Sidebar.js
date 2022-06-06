@@ -9,8 +9,6 @@ jest.mock('axios')
 
 const mockAxios = axios
 
-//jest.spyOn(handleChange, 'data').mockReturnValue(4)
-
 const handleChange = jest.fn()
 const handleChangePriceOrder = jest.fn()
 const loading = jest.fn()

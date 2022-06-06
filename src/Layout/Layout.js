@@ -10,7 +10,8 @@ const Layout = ({ children }) => {
 			{children}
 
 			<footer>
-				<p>Footer</p>
+				<img width='200px' height='auto' src={Logo} alt='Logo of Spot A Room' />
+				<p>Copyright @ 2022</p>
 			</footer>
 		</>
 	)

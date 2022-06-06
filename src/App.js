@@ -1,4 +1,3 @@
-import './App.css'
 import Sidebar from './components/Sidebar'
 import styles from './Layout/Layout.module.css'
 import Layout from './Layout/Layout'

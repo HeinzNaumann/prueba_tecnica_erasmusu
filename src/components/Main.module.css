@@ -1,6 +1,115 @@
 .propertyBox{
     padding: 50px;
-    border: 1px solid red;
+    border-bottom: 1px solid var(--corporative-lightgrey);
     display: flex;
     flex-direction: row;
+    gap:1rem
+}
+
+@media (max-width: 1024px){
+    .propertyBox{
+        padding: 50px 20px;
+        display: flex;
+        flex-direction: column;
+    }
+    
+}
+
+@media (max-width: 768px){
+    .propertyBox{
+        padding: 60px 20px;
+    }
+}
+
+@media (max-width: 468px){
+    .propertyBox{
+        padding: 60px 0px;
+    }
+
+}
+
+
+
+
+.propertyBoxPrice{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+@media (max-width: 1024px){
+
+    .propertyBoxPrice{
+flex-direction: row-reverse;
+    }
+}
+.propertyBoxPrice h2{
+    text-align: center;
+    font-size: 1.5rem;
+    color: var( --corporative-yellow);
+    background-color: black;
+    width: 60px;
+    padding: 10px 5px 0px 5px; 
+    border-radius: 10px;
+    align-self: center;
+    
+  
+}
+
+.propertyBoxPrice button{
+    width: 150px;
+    align-self: end;
+}
+
+.propertyBoxDescription{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 55%
+}
+
+
+@media (max-width: 1024px){
+
+.propertyBoxDescription {
+    gap: 2rem;
+}
+
+}
+
+.propertyBoxDescription button{
+    width: 150px;
+    
+}
+
+
+@media (min-width: 1024px){
+
+    .propertyBoxDescription button{
+        align-self: end;
+    }
+}
+
+
+.propertyButton{
+    display:flex;
+    flex-direction: row;
+    gap:1rem;
+}
+
+img.imageProperties{
+    align-self: center;
+    object-fit:cover;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    text-align: center;
+    border-radius: 3px;
+}
+
+@media (max-width: 1024px){
+    img.imageProperties{
+        width: 250px;
+        margin-bottom: 20px;
+        height: 180px;
+      
+    }
 }
