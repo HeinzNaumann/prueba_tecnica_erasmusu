@@ -1,4 +1,4 @@
-import { useState, useEffect, createContext } from 'react'
+import { useState, useEffect, createContext, useCallback } from 'react'
 import axios from 'axios'
 const PropertyTypeContext = createContext()
 
@@ -13,6 +13,7 @@ const PropertyTypeProvider = ({ children }) => {
 	}
 
 	const getPropertyType = async value => {
+		console.log("renders")
 		try {
 			const url = `/markers/${city}?type[]=${value}`
 			const { data } = await axios(url)
@@ -26,7 +27,8 @@ const PropertyTypeProvider = ({ children }) => {
 		}
 	}
 
-	const getProperties = async value => {
+	const getProperties = useCallback(async value => {
+
 		try {
 			let urlIds = []
 			if (propertyIdsFilter.length > 1) {
@@ -53,8 +55,8 @@ const PropertyTypeProvider = ({ children }) => {
 		} catch (error) {
 			console.log(error)
 		}
-	}
-
+	}, [propertyIdsFilter]
+	)
 	useEffect(() => {
 		getProperties()
 	}, [propertyIdsFilter])
